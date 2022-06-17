@@ -34,7 +34,9 @@ trait CustomTrait
         $request->customerData->EmailData->EmailingAccepted = false;
         $request->customerData->EmailData->SendReceiptByMail = false;
         $request->customerData->FirstName = $input['order']['customer']['first_name'];
+        $request->customerData->IsCompany = false;
         $request->customerData->LastName = $input['order']['customer']['last_name'];
+        $request->customerData->IsCompany = false;
         $request->customerData->PhoneData = new StdClass();
         $request->customerData->PhoneData->CellularPhoneNumber = $input['order']['customer']['default_address']['phone'];
         $request->customerData->UsualStoreId = $input['location']['locCegidId'];
@@ -52,7 +54,7 @@ trait CustomTrait
         $request->customerData->OptinEmail = "AskCustomer";
         $request->customerData->OptinMobile = "AskCustomer";
         $request->customerData->OptinOfficePhone = "AskCustomer";
-        $request->customerData->PassportNumber = $input['order']['customer']['id'];
+        $request->customerData->PassportNumber = "12;" . $input['order']['customer']['default_address']['company'];
         $request->customerData->ShortName = $input['order']['customer']['first_name'];
         $request->customerData->ValidAlternativeEmail = false;
         $request->customerData->ValidEmail = true;
@@ -109,7 +111,7 @@ trait CustomTrait
         $request->modifiedData->OptinEmail = "AskCustomer";
         $request->modifiedData->OptinMobile = "AskCustomer";
         $request->modifiedData->OptinOfficePhone = "AskCustomer";
-        $request->modifiedData->PassportNumber = $input['order']['customer']['id'];
+        $request->modifiedData->PassportNumber = "12;" . $input['order']['customer']['default_address']['company'];
         $request->modifiedData->ShortName = $input['order']['customer']['first_name'];
         $request->modifiedData->ValidAlternativeEmail = false;
         $request->modifiedData->ValidEmail = true;

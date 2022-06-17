@@ -6,12 +6,12 @@ use SoapClient;
 use Exception;
 use Illuminate\Support\Facades\Log as FacadesLog;
 
-class CegidOrderService
+class CegidInventoryService
 {
     private $soapClient;
     public function __construct()
     {
-        $url = env('CEGID_SERVER_IP') . "SaleDocumentService.svc";
+        $url = env('CEGID_SERVER_IP') . "ItemInventoryWcfService.svc";
 
         $this->soapClient = new SoapClient(
             $url . "?singleWsdl",
@@ -24,35 +24,15 @@ class CegidOrderService
         );
     }
 
-    public function createOrder($request)
+
+    public function getAvailableQty($request)
     {
-        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         try {
-            $resu = $this->soapClient->Create($request);
+            $resu = $this->soapClient->GetAvailableQty($request);
             FacadesLog::info("REQUEST:\n" . htmlentities($this->soapClient->__getLastRequest()) . "\n");
             return $resu;
         } catch (Exception $e) {
             FacadesLog::error("ERROR:\n" . htmlentities($this->soapClient->__getLastRequest()) . "\n");
-            return response()->json($e, 500);
-        }
-    }
-
-    public function getOrderByKey($request)
-    {
-        try {
-            $resu = $this->soapClient->GetByKey($request);
-            return $resu;
-        } catch (Exception $e) {
-            return response()->json($e, 500);
-        }
-    }
-
-    public function getSellsByStore($request)
-    {
-        try {
-            $resu = $this->soapClient->GetHeaderList($request);
-            return $resu;
-        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }

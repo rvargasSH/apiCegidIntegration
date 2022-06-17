@@ -40,7 +40,6 @@ trait OrderTrait
         $request->createRequest->Header->Date = Carbon::now()->format('Y-m-d');
         $request->createRequest->Header->ExternalReferenceDate = Carbon::now()->format('Y-m-d');
         $request->createRequest->Header->InternalReference = $input['order']['id'];
-        // $request->createRequest->Header->InternalReference = '4758380019973';
 
         $request->createRequest->Header->LinesUnmodifiable = false;
         $request->createRequest->Header->OmniChannel = new StdClass();
@@ -74,10 +73,7 @@ trait OrderTrait
             $request->createRequest->InvoicingAddress->ZipCode = $input['region']['regPostalCodeCegid'];
         }
 
-        // $request->createRequest->Lines = new StdClass();
         $request->createRequest->Lines = array();
-        //a for to each product
-        $codigosProducto = ['BLOC00014', 'BLOC00015', 'BLOC00016', 'BLOC00015', 'BLOC00016'];
         $i = 0;
         foreach ($input['order']['line_items'] as $key => $item) {
             $Create_Line = new StdClass();
@@ -86,8 +82,7 @@ trait OrderTrait
             $Create_Line->DiscountTypeId = 'ONL';
             $Create_Line->CancelStatus = 'Unlocked';
             $Create_Line->ItemIdentifier = new StdClass();
-            // $Create_Line->ItemIdentifier->Reference = $item['vendor'];
-            $Create_Line->ItemIdentifier->Reference = $codigosProducto[$i];
+            $Create_Line->ItemIdentifier->Reference = $item['vendor'];
             $Create_Line->Label = $item['name'];
             $Create_Line->NetUnitPrice = $item['price_set']['shop_money']['amount'];
             $Create_Line->Origin = 'ECommerce';

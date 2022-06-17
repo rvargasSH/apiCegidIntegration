@@ -7,6 +7,7 @@ use App\Traits\OrderTrait;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Log as FacadesLog;
 
 class OrderController extends Controller
 {
@@ -29,8 +30,10 @@ class OrderController extends Controller
         try {
             $request = $this->renderOrderBody($input);
             $serviceReponse = $this->cegidSoapService->createOrder($request);
+            //FacadesLog::info("RESPONSEOK:\n" .  $serviceReponse . "\n");
             return response()->json($this->setOrderResponseBody($serviceReponse), 200);
         } catch (Exception $e) {
+            FacadesLog::error("RESPONSEERROR:\n" .  $e . "\n");
             return response()->json($e, 500);
         }
     }

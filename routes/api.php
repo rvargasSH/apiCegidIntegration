@@ -19,3 +19,5 @@ Route::post('create-customer', [App\Http\Controllers\CustomController::class, 'c
 Route::post('update-customer', [App\Http\Controllers\CustomController::class, 'updateCustomer']);
 Route::post('create-order', [App\Http\Controllers\OrderController::class, 'createOrder']);
 Route::get('get-order-status/{orderId}', [App\Http\Controllers\OrderController::class, 'getOrderStatus']);
+Route::get('get-sells-by-store/{storeId}', [App\Http\Controllers\SellsController::class, 'getSellsByStore']);
+Route::get('get-inventory-by-store-product/{storeId}/{productCode}', [App\Http\Controllers\InventoryController::class, 'getInventoryByStoreAndProductCode']);
